@@ -27,6 +27,7 @@ SUCCESS=false;
 while ! $SUCCESS; do
   if [ $($KUBECTL_CMD get namespaces --field-selector=metadata.name=mem-example -o custom-columns=NAME:.metadata.name --no-headers | wc -l) -eq 1 ]; then
     echo "Great job creating the namespace!";
+    sleep 3s;
     SUCCESS=true;
   else
     sleep 5s;
@@ -47,20 +48,38 @@ echo "Container args array: --vm, 1, --vm-bytes, 150M, --vm-hang, 1"
 
 # microk8s.kubectl get pods -n mem-example -o go-template --template '{{"\n"}}{{range .items}}{{if eq .metadata.name "memory-demo"}}{{.}}{{end}}{{end}}{{"\n\n"}}'
 
-SUCCESS=false;
-while ! $SUCCESS; do
-    if [ "$($KUBECTL_CMD get namespaces)" == "DATA" ]; then
-      SUCCESS=true;
-    else
-      sleep 5s;
-    fi
-done
 
 SUCCESS=false;
 while ! $SUCCESS; do
-    if [ "$($KUBECTL_CMD get namespaces)" == "DATA" ]; then
+    if [ $($KUBECTL_CMD get pods -n mem-example -o go-template --template '{{"\n"}}{{range .items}}{{if eq .metadata.name "memory-demo"}}{{range .spec.containers}}{{$command := (index .command 0)}}{{$args := .args}}{{if and (eq .image "polinux/stress") (eq .name "memory-demo-ctr") (eq .resources.limits.memory "200Mi") (eq .resources.requests.memory "100Mi") (eq $command "stress")}}{{if and (or (eq (index $args 0) "--vm") (eq (index $args 2) "--vm") (eq (index $args 4) "--vm"))  (or (eq (index $args 1) "1") (eq (index $args 3) "1") (eq (index $args 5) "1")) (or (eq (index $args 0) "--vm-bytes") (eq (index $args 2) "--vm-bytes") (eq (index $args 4) "--vm-bytes")) (or (eq (index $args 1) "150M") (eq (index $args 3) "150M") (eq (index $args 5) "150M")) (or (eq (index $args 0) "--vm-hang") (eq (index $args 2) "--vm-hang") (eq (index $args 4) "--vm-hang"))}}{{.}}{{end}}{{end}}{{end}}{{end}}{{end}}{{"\n\n"}}' | wc | awk '{ print $2 }') -gt 0 ]; then 
+      echo "Success";
+      sleep 3s
       SUCCESS=true;
-    else
+    else 
       sleep 5s;
     fi
 done
+clear
+
+echo "You can verify the Pod Container is running by executing: "
+echo "    kubectl get pod memory-demo --namespace=mem-example"
+sleep 5s; echo "";
+
+echo "For more detailed information about the Pod:"
+echo "    kubectl get pod memory-demo --output=yaml --namespace=mem-example"
+sleep 5s; echo "";
+
+echo "Get metrics for the pod:"
+echo "    kubectl top pod memory-demo --namespace=mem-example"
+sleep 5s; echo "";
+
+#SUCCESS=false;
+#while ! $SUCCESS; do
+#    if [ "$($KUBECTL_CMD get namespaces)" == "DATA" ]; then
+#      echo "Success";
+#      SUCCESS=true;
+#    else
+#      sleep 5s;
+#    fi
+#done
+#clear
