@@ -200,7 +200,11 @@ echo "    $KUBECTL_CMD describe pod memory-demo-3 --namespace=mem-example"
 echo ""; sleep 5s
 
 echo "The output shows the Container cannot be scheduled because of insufficient memory on the Nodes:"
-echo "  ...  FailedScheduling  No nodes are available that match all of the following predicates:: Insufficient memory (3)."
+echo ""
+echo "Events:"
+echo "        Type     Reason            Age   From               Message"
+echo "        ----     ------            ----  ----               -------"
+echo "        Warning  FailedScheduling  59s   default-scheduler  0/1 nodes are available: 1 Insufficient memory."
 echo ""; sleep 5s
 
 echo "Memory resources are measured in bytes. You can express memory as a plain integer or fixed point integer with one of the following suffixes:"
@@ -251,4 +255,7 @@ while ! $SUCCESS; do
 done
 clear
 
+echo "Great work!"
+echo ""
 echo "You've completed the task: Assign Memory Resources to Containers and Pods  [https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/]"
+echo ""
