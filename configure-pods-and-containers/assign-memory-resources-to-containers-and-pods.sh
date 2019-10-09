@@ -230,14 +230,16 @@ clear
 echo "If you do not specify a memory limit for a Container, one of the following situations apply:"
 echo ""; sleep 5s
 echo "* The Container has no upper bound on the amount of memory it uses. The Container could use all of the memory available on the Node where it is running which in turn could invoke the OOM Killer. Containers with no resource limits have a greater chance of being killed by the memory killer."
+sleep 5s
 echo "* The Container is running in a namespace that has a default memory limit, and the Container is automatically assigned the default limit. Cluster administrators can use a LimitRange to specify a default value for the memory limit."
 echo ""; sleep 5s
 
-echo "Motivation for memory requests and limits"
+echo "Motivation for memory requests and limits:"
 echo ""; sleep 5s
 echo "By configuring memory requests and limits for the Containers that run in your cluster, you can make efficient use of the memory resources available on your cluster's Nodes. By keeping a Pod's memory request low, you give the Pod a good chance of being scheduled. By having a memory limit that is greater than the memory request you accomplish two things:"
 echo ""; sleep 5s
 echo "* The Pod can have bursts of activity where it makes use of memory that happens to be available."
+sleep 5s
 echo "* The amount of memory a Pod can use during a burst is limited to some reasonable amount."
 echo ""; sleep 5s
 
@@ -258,4 +260,19 @@ clear
 echo "Great work!"
 echo ""
 echo "You've completed the task: Assign Memory Resources to Containers and Pods  [https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/]"
+echo ""
+echo "What's next:"
+echo ""
+echo "App Developers:"
+echo "- Assign CPU Resources to Containers and Pods"
+echo "- Configure Quality of Service for Pods"
+echo ""
+echo "Cluster Administrators:"
+echo "- Configure Default Memory Requests and Limits for a Namespace"
+echo "- Configure Default CPU Requests and Limits for a Namespace"
+echo "- Configure Minimum and Maximum Memory Constraints for a Namespace"
+echo "- Configure Minimum and Maximum CPU Constraints for a Namespace"
+echo "- Configure Memory and CPU Quotas for a Namespace"
+echo "- Configure a Pod Quota for a Namespace"
+echo "- Configure Quotas for API Objects"
 echo ""

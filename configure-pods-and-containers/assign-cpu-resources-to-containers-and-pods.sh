@@ -182,7 +182,7 @@ echo ""
 echo "If you do not specify a CPU limit for a Container, one of the following situations apply:"
 echo ""; sleep 5s
 echo "* The Container has no upper bound on the CPU resources it can use. The Container could use all of the CPU resources available on the Node when it is running."
-echo ""; sleep 5s
+sleep 5s
 echo "* The Container is running in a namespace that has a default CPU limit and the Container is automatically assigned the default limit. Cluster administrators can use a LimitRange to specify a default value for the CPU limit."
 echo ""; sleep 5s
 
@@ -190,7 +190,8 @@ echo "Motivation for CPU requests and limits:"
 echo ""; sleep 5s
 echo "By configuring the CPU requests and limits of the Containers that run in your cluster, you can make efficient use of the CPU resources available on your cluster Nodes. By keeping a Pod CPU request low, you give the Pod a good chance of beingscheduled. By having a CPU limit that is greater than the CPU request, you accomplish two things:"
 echo ""; sleep 5s
-echo "* The Pod can have burst of activity where it makes use of CPU resources that happen to be available."
+echo "* The Pod can have bursts of activity where it makes use of CPU resources that happen to be available."
+sleep 5s
 echo "* The amount of CPU resources a Pod can use during a burst is limited to some reasonable amount."
 echo ""; sleep 5s
 
@@ -226,3 +227,4 @@ echo "- Configure Minimum and Maximum CPU Constraints for a Namespace"
 echo "- Configure Memory and CPU Quotas for a Namespace"
 echo "- Configure a Pod Quota for a Namespace"
 echo "- Configure Quotas for API Objects"
+echo ""
